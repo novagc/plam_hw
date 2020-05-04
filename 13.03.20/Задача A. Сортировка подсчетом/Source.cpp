@@ -1,0 +1,59 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define ll long long
+
+#include <stdio.h>
+#include <limits.h>
+
+#include <algorithm>
+#include <iterator>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#include <string>
+#include <vector>
+#include <cstdio>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <ctime>
+#include <cmath>
+#include <regex>
+#include <map>
+#include <set>
+
+using namespace std;
+
+void sort(vector<int>& temp) {
+	vector<int> tmp(20001, 0);
+	
+	for (int i = 0; i < temp.size(); i++)
+		tmp[temp[i] + 10000]++;
+
+	for (int i = 0, j = 0; i < 20001; i++)
+		for (int k = 0; k < tmp[i]; k++)
+			temp[j++] = i - 10000;
+}
+
+int main()
+{
+	vector<int> temp;
+	int n;
+	int _;
+
+	cin >> n;
+	
+	for (int i = 0; i < n; i++) {
+		cin >> _;
+		temp.push_back(_);
+	}
+
+	sort(temp);
+
+	for (int i = 0; i < n; i++)
+		cout << temp[i] << ' ';
+
+	return 0;
+}
