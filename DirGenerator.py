@@ -1,3 +1,11 @@
 import os
-[os.mkdir(x) for x in ['./' + y for y in [x[:-1] if x[-1] == '\n' else x for x in open('dirs.txt', 'r',encoding='utf-8').readlines()]] if not os.path.exists(x)]
-[open(z, 'w', encoding='utf-8').close() for z in ['./' + y + './Source.cpp' for y in [x[:-1] if x[-1] == '\n' else x for x in open('dirs.txt', 'r',encoding='utf-8').readlines()]] if not os.path.exists(z)]
+temp = open('dirs.txt', 'r').readlines()
+inDir = ''
+for dir in temp:
+	if sum([x.isdigit for x in dir.split('.')]) == 3:
+		os.mkdir(f'./{dir}')
+		inDir = dir
+	else:
+		os.mkdir(f'./{inDir}/{dir}')
+		if not os.path.exists(f'./{inDir}/{dir}/Source.cpp'):
+			open(f'./{inDir}/{dir}/Source.cpp', 'w').close()
