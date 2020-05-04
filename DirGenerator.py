@@ -1,8 +1,8 @@
 import os
-temp = open('dirs.txt', 'r').readlines()
+temp = [x[:-1] if x[-1] == '\n' else x for x in open('dirs.txt', 'r', encoding='utf-8').readlines()]
 inDir = ''
 for dir in temp:
-	if sum([x.isdigit for x in dir.split('.')]) == 3:
+	if sum([x.isdigit() for x in dir.split('.')]) == 3:
 		os.mkdir(f'./{dir}')
 		inDir = dir
 	else:
