@@ -26,52 +26,56 @@
 
 using namespace std;
 
-void sort(vector<int>& temp) {
-	vector<int> f;
-	vector<int> s;
-	vector<int> t;
+void bucketSort(vector<int>& array) {
+    int n = array.size();
 
-	for (int i = 0; i < temp.size(); i++)
-		if (temp[i] < 0)
-			f.push_back(temp[i]);
-		else if (temp[i] <= 100)
-			s.push_back(temp[i]);
-		else
-			t.push_back(temp[i]);
+    vector<vector<int>> buckets(n / 2 + 1);
+    int minElement = array[0];
+    int maxElement = array[0];
+    int numBuckets = n / 2;
+    int range;
 
-	sort(f.begin(), f.end());
-	sort(s.begin(), s.end());
-	sort(t.begin(), t.end());
+    for (int i = 0; i < n; i++) {
+        minElement = min(minElement, array[i]);
+        maxElement = max(maxElement, array[i]);
+    }
 
-	int j = 0;
+    range = maxElement - minElement + 1;
 
-	for (int i = 0; i < f.size(); i++)
-		temp[j++] = f[i];
+    for (int i = 0, index = -1; i < n; i++) {
+        index = int(array[i] * numBuckets / range);
+        buckets[index].push_back(array[i]);
+    }
 
-	for (int i = 0; i < s.size(); i++)
-		temp[j++] = s[i];
+    for (int i = 0; i < numBuckets; i++) {
+        sort(buckets[i].begin(), buckets[i].end());
+    }
 
-	for (int i = 0; i < t.size(); i++)
-		temp[j++] = t[i];
+    for (int i = 0, j = 0; i < numBuckets; i++)
+        for (int k = 0; k < buckets[i].size(); k++)
+            array[j++] = buckets[i][k];
 }
 
 int main()
 {
-	vector<int> temp;
-	int n;
-	int _;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 
-	cin >> n;
-	
-	for (int i = 0; i < n; i++) {
-		cin >> _;
-		temp.push_back(_);
-	}
+    vector<int> temp;
+    int n;
+    int _;
 
-	sort(temp);
+    cin >> n;
 
-	for (int i = 0; i < n; i++)
-		cout << temp[i] << ' ';
+    for (int i = 0; i < n; i++) {
+        cin >> _;
+        temp.push_back(_);
+    }
 
-	return 0;
+    bucketSort(temp);
+
+    for (int i = 0; i < n; i++)
+        cout << temp[i] << ' ';
+
+    return 0;
 }
