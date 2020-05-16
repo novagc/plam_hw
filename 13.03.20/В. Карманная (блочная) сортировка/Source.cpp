@@ -8,7 +8,7 @@ void bucketSort(int* arr, int n) {
     int minElement = arr[0];
     int maxElement = arr[0];
     int numBuckets = n / 2;
-    int delta;
+    float delta;
 
     for (int i = 0; i < n; i++) {
         if (minElement > arr[i])
