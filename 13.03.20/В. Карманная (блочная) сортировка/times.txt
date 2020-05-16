@@ -1,0 +1,2 @@
+Windows (Visual Studio Debug): 83    сек
+Linux                        : 7.465 сек
